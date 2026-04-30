@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nachiket Wani — Civil Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --surface: #0d1318;
+    --card: #111820;
+    --border: rgba(180,140,60,0.18);
+    --gold: #c8a84b;
+    --gold-light: #e8c96e;
+    --gold-dim: rgba(200,168,75,0.35);
+    --teal: #2ec4b6;
+    --teal-dim: rgba(46,196,182,0.2);
+    --text: #e8e0d0;
+    --muted: #6b7280;
+    --accent: #c8a84b;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold-dim);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9997;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 60px;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,12,16,0.7);
+    animation: slideDown 0.8s ease 0.2s both;
+  }
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 100%;
+    height: 1px;
+    background: var(--gold);
+    transition: right 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { right: 0; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 60px;
+    overflow: hidden;
+  }
+
+  /* ANIMATED GRID BACKGROUND */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,168,75,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,168,75,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridDrift 20s linear infinite;
+  }
+  @keyframes gridDrift {
+    from { transform: translateY(0); }
+    to { transform: translateY(60px); }
+  }
+
+  /* RADIAL GLOW */
+  .hero-glow {
+    position: absolute;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(200,168,75,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  }
+
+  /* TEAL ACCENT GLOW (right side) */
+  .hero-glow-teal {
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(46,196,182,0.06) 0%, transparent 70%);
+    bottom: 10%; right: 5%;
+    animation: glowPulse 6s ease-in-out infinite reverse;
+  }
+
+  /* FLOATING PARTICLES */
+  .particles { position: absolute; inset: 0; pointer-events: none; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-100px) translateX(30px); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--teal);
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 10vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #e8e0d0 0%, var(--gold) 50%, #e8e0d0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.8s forwards;
+    position: relative;
+  }
+  .hero-name .line { display: block; }
+  .hero-name .line.gold {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 16px;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1s forwards;
+  }
+
+  .hero-divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 32px 0;
+    opacity: 0;
+    animation: expandWidth 0.8s ease 1.2s forwards;
+  }
+  @keyframes expandWidth {
+    from { width: 0; opacity: 0; }
+    to { width: 80px; opacity: 1; }
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(232,224,208,0.65);
+    max-width: 520px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.3s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 48px;
+    display: flex;
+    gap: 20px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.5s forwards;
+  }
+  .btn-primary {
+    padding: 14px 36px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+  .btn-primary:hover { color: var(--bg); }
+  .btn-primary:hover::before { transform: translateX(0); }
+
+  .btn-ghost {
+    padding: 14px 36px;
+    background: transparent;
+    border: 1px solid rgba(232,224,208,0.15);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold-dim); color: var(--text); }
+
+  /* HERO STATS (right side floating) */
+  .hero-stats {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeLeft 1s ease 1.8s forwards;
+  }
+  @keyframes fadeLeft {
+    from { transform: translateY(-50%) translateX(40px); opacity: 0; }
+    to { transform: translateY(-50%) translateX(0); opacity: 1; }
+  }
+  .stat-item {
+    text-align: center;
+    padding: 20px 28px;
+    border: 1px solid var(--border);
+    background: rgba(13,19,24,0.8);
+    backdrop-filter: blur(10px);
+    position: relative;
+  }
+  .stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease 2s forwards;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50% { opacity: 0.4; transform: scaleY(0.7); }
+  }
+  .scroll-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  @keyframes fadeUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* ─── ABOUT SECTION ─── */
+  section { padding: 120px 60px; position: relative; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 5vw, 72px);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 48px;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: rgba(232,224,208,0.7);
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--gold); font-weight: 400; }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .info-item {
+    padding: 20px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .info-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 100%;
+    height: 1px;
+    background: var(--gold);
+    transition: right 0.4s ease;
+  }
+  .info-item:hover { border-color: var(--gold-dim); }
+  .info-item:hover::after { right: 0; }
+  .info-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .info-val {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 300;
+  }
+  .info-val a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .info-val a:hover { color: var(--gold-light); }
+
+  /* HOBBIES / TRAVEL SECTION */
+  .travel-section { background: var(--surface); }
+
+  .travel-marquee-wrap {
+    overflow: hidden;
+    margin-bottom: 60px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  .travel-marquee {
+    display: flex;
+    gap: 48px;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .travel-marquee span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .travel-marquee span.gold { color: var(--gold); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .travel-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .travel-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease, border-color 0.4s;
+  }
+  .travel-card:hover { transform: translateY(-6px); border-color: var(--gold-dim); }
+  .travel-card .icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+    animation: bob 3s ease-in-out infinite;
+  }
+  .travel-card:nth-child(2) .icon { animation-delay: 0.5s; }
+  .travel-card:nth-child(3) .icon { animation-delay: 1s; }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .travel-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .travel-card p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(232,224,208,0.55);
+    font-weight: 300;
+  }
+  .travel-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, var(--gold-dim), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .travel-card:hover::before { opacity: 1; }
+
+  /* ROADMAP / GOALS */
+  .goals-section {}
+  .timeline {
+    position: relative;
+    padding-left: 60px;
+    max-width: 700px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute;
+    left: -66px; top: 4px;
+    width: 12px; height: 12px;
+    border: 1px solid var(--gold);
+    background: var(--bg);
+    border-radius: 50%;
+  }
+  .timeline-dot::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+  @keyframes dotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.6); }
+  }
+  .timeline-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .timeline-head {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .timeline-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(232,224,208,0.6);
+    font-weight: 300;
+  }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--surface);
+    text-align: center;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .contact-card {
+    padding: 40px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; top: 100%;
+    background: linear-gradient(to top, var(--gold-dim), transparent);
+    transition: top 0.4s ease;
+  }
+  .contact-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .contact-card:hover::before { top: 0; }
+  .contact-icon { font-size: 28px; position: relative; z-index: 1; }
+  .contact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    position: relative; z-index: 1;
+  }
+  .contact-val {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 300;
+    position: relative; z-index: 1;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+
+  /* REVEAL ANIMATION */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { gap: 20px; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-stats { display: none; }
+    section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .travel-cards { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">NW</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#travel">Hobbies</a></li>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-teal"></div>
+
+  <!-- PARTICLES -->
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Civil Engineer · MIT Academy of Engineering</div>
+
+    <h1 class="hero-name">
+      <span class="line">Nachiket</span>
+      <span class="line gold">Wani</span>
+    </h1>
+
+    <p class="hero-title">Dreaming in blueprints, building in concrete.</p>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-desc">
+      Aspiring Civil Engineer with a vision to shape India's infrastructure through
+      dedication, precision, and a relentless drive toward a distinguished government career.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+      <a href="#goals" class="btn-ghost">My Vision</a>
+    </div>
+  </div>
+
+  <!-- STATS PANEL -->
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">2025</div>
+      <div class="stat-label">Enrolled</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">BE</div>
+      <div class="stat-label">Civil Engg.</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">MIT</div>
+      <div class="stat-label">Alandi, Pune</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <div class="scroll-text">Scroll</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 · Profile</div>
+  <h2 class="section-title reveal">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        Hello, I'm <strong>Nachiket Wani</strong> — a first-year Civil Engineering student at
+        <strong>MIT Academy of Engineering, Alandi</strong>. I believe that infrastructure is
+        the skeleton of a nation, and I want to be among those who build it.
+      </p>
+      <p>
+        With an unwavering passion for structural design, urban planning, and sustainable
+        development, I aim to <strong>secure a prestigious government position</strong> in
+        the civil engineering domain and contribute meaningfully to India's growth story.
+      </p>
+      <p>
+        Beyond the drawing boards and calculations, I find my soul in travel — exploring
+        new landscapes that inspire fresh perspectives on space, scale, and design.
+      </p>
+    </div>
+    <div class="info-grid reveal">
+      <div class="info-item">
+        <div class="info-key">Full Name</div>
+        <div class="info-val">Nachiket Wani</div>
+      </div>
+      <div class="info-item">
+        <div class="info-key">PRN</div>
+        <div class="info-val">202501030066</div>
+      </div>
+      <div class="info-item">
+        <div class="info-key">Branch</div>
+        <div class="info-val">Civil Engineering</div>
+      </div>
+      <div class="info-item">
+        <div class="info-key">College</div>
+        <div class="info-val">MIT AOE, Alandi</div>
+      </div>
+      <div class="info-item">
+        <div class="info-key">Mobile</div>
+        <div class="info-val"><a href="tel:9028760695">9028760695</a></div>
+      </div>
+      <div class="info-item">
+        <div class="info-key">Instagram</div>
+        <div class="info-val"><a href="https://instagram.com/Krishnawani__2007" target="_blank">@Krishnawani__2007</a></div>
+      </div>
+      <div class="info-item" style="grid-column: span 2;">
+        <div class="info-key">Email</div>
+        <div class="info-val"><a href="mailto:Krishnawani2007@gmail.com">Krishnawani2007@gmail.com</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAVEL / HOBBIES -->
+<section id="travel" class="travel-section">
+  <div class="section-label">02 · Passions</div>
+  <h2 class="section-title reveal">The Wanderer</h2>
+
+  <div class="travel-marquee-wrap">
+    <div class="travel-marquee">
+      <span>Mountains</span><span class="gold">✦</span>
+      <span>Valleys</span><span class="gold">✦</span>
+      <span>Architecture</span><span class="gold">✦</span>
+      <span>Coastlines</span><span class="gold">✦</span>
+      <span>Heritage Sites</span><span class="gold">✦</span>
+      <span>Bridges</span><span class="gold">✦</span>
+      <span>Exploration</span><span class="gold">✦</span>
+      <!-- duplicate for seamless loop -->
+      <span>Mountains</span><span class="gold">✦</span>
+      <span>Valleys</span><span class="gold">✦</span>
+      <span>Architecture</span><span class="gold">✦</span>
+      <span>Coastlines</span><span class="gold">✦</span>
+      <span>Heritage Sites</span><span class="gold">✦</span>
+      <span>Bridges</span><span class="gold">✦</span>
+      <span>Exploration</span><span class="gold">✦</span>
+    </div>
+  </div>
+
+  <div class="travel-cards">
+    <div class="travel-card reveal">
+      <span class="icon">🏔️</span>
+      <h3>Mountains & Trails</h3>
+      <p>Every peak conquered is a reminder that the greatest structures are built step by step — in engineering and in life.</p>
+    </div>
+    <div class="travel-card reveal">
+      <span class="icon">🏛️</span>
+      <h3>Architecture & Ruins</h3>
+      <p>Ancient temples, colonial bridges, crumbling forts — each a textbook written in stone, teaching timeless engineering lessons.</p>
+    </div>
+    <div class="travel-card reveal">
+      <span class="icon">🌏</span>
+      <h3>New Horizons</h3>
+      <p>Every journey expands perspective. Discovering how different cultures build and inhabit space fuels creative engineering thinking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GOALS / VISION -->
+<section id="goals" class="goals-section">
+  <div class="section-label">03 · Vision</div>
+  <h2 class="section-title reveal">Career Roadmap</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2025 — Present</div>
+      <div class="timeline-head">B.E. Civil Engineering</div>
+      <div class="timeline-desc">Laying the academic foundation at MIT Academy of Engineering, Alandi — mastering structural mechanics, surveying, and construction technology.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2026 — 2028</div>
+      <div class="timeline-head">Specialisation & Projects</div>
+      <div class="timeline-desc">Deep-diving into infrastructure design, geotechnical engineering, and participating in national-level technical competitions and internships.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2028 — 2029</div>
+      <div class="timeline-head">Government Exam Preparation</div>
+      <div class="timeline-desc">Targeting UPSC ESE / MPSC / PWD recruitment examinations with focused preparation alongside the final year of graduation.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2029 →</div>
+      <div class="timeline-head">Government Civil Engineer</div>
+      <div class="timeline-desc">Securing a position in public infrastructure development — contributing to India's roads, dams, bridges, and urban landscape with integrity and excellence.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-label" style="justify-content: center; margin-bottom: 12px;">04 · Connect</div>
+  <h2 class="section-title reveal">Let's Connect</h2>
+  <p class="reveal" style="font-size:17px; color: rgba(232,224,208,0.55); font-weight:300; max-width:500px; margin: 0 auto;">
+    Whether you're a fellow student, mentor, or collaborator — I'd love to hear from you.
+  </p>
+
+  <div class="contact-grid reveal">
+    <a href="tel:9028760695" class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-label">Mobile</div>
+      <div class="contact-val">9028760695</div>
+    </a>
+    <a href="mailto:Krishnawani2007@gmail.com" class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-label">Email</div>
+      <div class="contact-val">Krishnawani2007@gmail.com</div>
+    </a>
+    <a href="https://instagram.com/Krishnawani__2007" target="_blank" class="contact-card">
+      <div class="contact-icon">📸</div>
+      <div class="contact-label">Instagram</div>
+      <div class="contact-val">@Krishnawani__2007</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Nachiket Wani · Civil Engineer in the Making</p>
+  <div class="footer-logo">NW</div>
+  <p>MIT AOE · Alandi, Pune</p>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    cursorRing.style.left = rx - 18 + 'px';
+    cursorRing.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a, button, .travel-card, .info-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2)');
+    el.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
+  });
+
+  // PARTICLES
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 28; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (6 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (Math.random() > 0.5 ? 2 : 3) + 'px';
+    container.appendChild(p);
+  }
+
+  // SCROLL REVEAL
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  // STAGGER TIMELINE
+  document.querySelectorAll('.timeline-item').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.15) + 's';
+  });
+
+  // STAGGER CARDS
+  document.querySelectorAll('.travel-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.1) + 's';
+  });
+</script>
+</body>
+</html>
